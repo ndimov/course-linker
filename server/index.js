@@ -30,9 +30,6 @@ function getMatchingGroups(searchText) {
     console.log(`Running search for ${searchText}`);
     var resultArray = [];
     sheets.searchResults(searchText, (result) => resultArray.push(result));
-    if (resultArray.length === 0) {
-        resultArray.push('No results found. Make a new chat and put it in the sheet!')
-    }
 
     return resultArray;
 }

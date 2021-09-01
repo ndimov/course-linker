@@ -1,8 +1,14 @@
 import React from 'react';
 import { Paper, Button, TextField } from "@material-ui/core";
 import Linkify from 'react-linkify';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
-const SERVER_URL = 'https://red-goat-15.loca.lt'
+const SERVER_URL = 'http://localhost:5000'
+// const SERVER_URL = 'https://course-linker.loca.lt'
 
 class SearchForm extends React.Component {
   constructor(props) {
@@ -29,6 +35,9 @@ class SearchForm extends React.Component {
       headers: {
         'Bypass-Tunnel-Reminder': 1,
       }
+    }).catch((e) => {
+      this.setState({ results: 'Server connection failed. Try again in a few minutes.'});
+      return
     });
     const body = await response.json();
 
@@ -38,7 +47,32 @@ class SearchForm extends React.Component {
       return
     }
     console.log(body);
-    this.setState({ results: body.results.join('\n')});
+    if (body.results.length === 0) {
+      this.setState({ results: 'No results found. Make a new chat and put it in the sheet!'})
+      return
+    }
+    let tableResults =
+    <Table>
+      <TableHead>
+        <TableRow>
+          <TableCell>Class Code</TableCell>
+          <TableCell>Class Name</TableCell>
+          <TableCell>Additional Info</TableCell>
+          <TableCell>Link</TableCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {body.results.map((data, index) => (
+          <TableRow key={index}>
+            <TableCell style={{whiteSpace: "nowrap"}}>{data.code}</TableCell>
+            <TableCell>{data.name}</TableCell>
+            <TableCell>{data.extra}</TableCell>
+            <TableCell><Linkify>{data.link}</Linkify></TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>;
+    this.setState({ results: tableResults});
   }
 
   render() {
@@ -57,8 +91,8 @@ class SearchForm extends React.Component {
           <Button type="submit">Submit</Button>
         </form>
         <br></br>
-        <Paper className="container" style={{ whiteSpace: 'pre-line' }}>
-          <Linkify>{this.state.results}</Linkify>
+        <Paper className="container" style={{ whiteSpace: 'pre-line', overflowX: 'auto'}}>
+          {this.state.results}
         </Paper>
       </div>
     );

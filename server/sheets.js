@@ -97,16 +97,11 @@ function doSearch() {
     // Check if the class code or class name contain the search string
     if(classCode && classCode.toLowerCase().includes(searchStr) || className.toLowerCase().includes(searchStr)) {
       var msg;
-      if (additionalInfo === '') {
-        // [class code] - [class name]
-        // [link]
-        msg = `${classCode} - ${className}: ${link}`;
-        // msg = `${row[0]} - ${row[1]}\n${row[3]}`;
-      } else {
-        // [class code] - [class name] - [professor/section]
-        // [link]
-        msg = `${classCode} - ${className} - ${additionalInfo}: ${link}`;
-        // msg = `${row[0]} - ${row[1]} - ${row[2]}\n${row[3]}`;
+      msg = {
+        code: classCode,
+        name: className,
+        extra: additionalInfo,
+        link: link
       }
       console.log(msg);
       sendMessage(msg);
