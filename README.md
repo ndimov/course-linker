@@ -1,6 +1,6 @@
-# GroupMe Chat Linker
+# Course Chat Linker
 
-My university makes a lot of group chats for different classes. Given a spreadsheet with course data and GroupMe links, this provides a web frontend to help users find the link for their classes without needing to open the spreadsheet.
+My university makes a lot of group chats for different classes. Given a spreadsheet with course data and group chat links, this provides a web frontend to help users find the link for their classes without needing to open the spreadsheet.
 
 ## Usage
 
