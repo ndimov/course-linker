@@ -1,6 +1,5 @@
 import React from 'react';
-import { Paper, Button, TextField } from "@material-ui/core";
-import Linkify from 'react-linkify';
+import { Link, Paper, Button, TextField } from "@material-ui/core";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -26,6 +25,12 @@ class SearchForm extends React.Component {
 
   passwordChange(event) {
     this.setState({ password: event.target.value});
+  }
+
+  linkifyCode(courseCode) {
+    const [department, shortName, courseNumber] = courseCode.split(" ");
+    const link = `https://acadinfo.wustl.edu/CourseListings/CourseInfo.aspx?dept=${department}&crs=${courseNumber}`;
+    return <Link href={link} target="_blank" underline="always">{courseCode}</Link>
   }
 
   async handleSubmit(event) {
@@ -64,10 +69,10 @@ class SearchForm extends React.Component {
       <TableBody>
         {body.results.map((data, index) => (
           <TableRow key={index}>
-            <TableCell style={{whiteSpace: "nowrap"}}>{data.code}</TableCell>
+            <TableCell style={{whiteSpace: "nowrap"}}>{this.linkifyCode(data.code)}</TableCell>
             <TableCell>{data.name}</TableCell>
             <TableCell>{data.extra}</TableCell>
-            <TableCell><Linkify>{data.link}</Linkify></TableCell>
+            <TableCell><Link href={data.link} target="_blank" underline="always">{data.link}</Link></TableCell>
           </TableRow>
         ))}
       </TableBody>
