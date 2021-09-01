@@ -2,7 +2,7 @@ import React from 'react';
 import { Paper, Button, TextField } from "@material-ui/core";
 import Linkify from 'react-linkify';
 
-const SERVER_URL = 'http://red-goat-15.loca.lt'
+const SERVER_URL = 'https://red-goat-15.loca.lt'
 
 class SearchForm extends React.Component {
   constructor(props) {
