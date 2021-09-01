@@ -30,4 +30,4 @@ First, copy `.env.example` to `.env`.
 
 Run the server with `npm run server`. Make sure to change SERVER_URL in the client code (You can set it to empty string and it will use the localhost proxy in `package.json`)
 
-Run the client with `npm start` in development. Production uses gh-pages.
+Run the client with `npm start` in development. Run `npm deploy` to build and deploy the app to gh-pages.
