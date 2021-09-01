@@ -26,8 +26,14 @@ First, copy `.env.example` to `.env`.
 * [Enable the Google Sheets API](https://developers.google.com/sheets/api/quickstart/nodejs). Follow the instructions there to save the client configuration to a new `credentials.json` file.
 * Run the project with `node sheets.js`. Follow the prompts to authorize access. This is Step 4 in the Quickstart guide linked above.
 
-## Run
+## Running in Development
 
 Run the server with `npm run server`. Make sure to change SERVER_URL in the client code (You can set it to empty string and it will use the localhost proxy in `package.json`)
 
-Run the client with `npm start` in development. Run `npm deploy` to build and deploy the app to gh-pages.
+Run the client with `npm start` in development.
+
+## Running in Production
+
+Run `npm run server` to run the server, and make the local tunnel `lt --port 5000 --subdomain course-linker` to forward requests correctly.
+
+Run `npm deploy` to build and deploy the app to gh-pages.
