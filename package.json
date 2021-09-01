@@ -1,0 +1,29 @@
+{
+  "name": "course-linker",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": "https://ndimov.github.io/course-linker",
+  "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "googleapis": "^85.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-linkify": "^1.0.0-alpha",
+    "react-scripts": "0.9.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "server": "node server/index.js",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
+  },
+  "proxy": "http://localhost:5000",
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
+  }
+}
