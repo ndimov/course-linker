@@ -34,6 +34,6 @@ Run the client with `npm start` in development.
 
 ## Running in Production
 
-Run `npm run server` to run the server, and make the local tunnel `lt --port 5000 --subdomain course-linker` to forward requests correctly.
+Run `npm run server` to run the server. If you have not set up HTTPS/SSL yet, you can make a local tunnel like `lt --port 5000 --subdomain course-linker` to forward requests correctly.
 
 Run `npm deploy` to build and deploy the app to gh-pages.
