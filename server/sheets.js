@@ -80,8 +80,8 @@ function getData(auth) {
     spreadsheetId: process.env.SPREADSHEET_ID,
     range: process.env.RANGE,
   }, (err, res) => {
-    console.log('Spreadsheet data retrieved');
-    if (err) return console.log('The API returned an error: ' + err);
+    // console.log('Spreadsheet data retrieved');
+    if (err) return console.log('Spreadsheet API returned an error: ' + err);
     savedRows = res.data.values;
   });
 }

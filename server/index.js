@@ -1,7 +1,8 @@
 const express = require("express");
 require('dotenv').config();
 const cors = require('cors');
-const https = require("https"),
+const https = require("https");
+require('log-timestamp');
 fs = require("fs");
 
 // Make sure these certificates point to the right place
