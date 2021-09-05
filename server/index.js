@@ -1,9 +1,18 @@
 const express = require("express");
 require('dotenv').config();
 const cors = require('cors');
+const https = require("https"),
+fs = require("fs");
+
+// Make sure these certificates point to the right place
+const options = {
+    key: fs.readFileSync("/var/www/keys/private.key"),
+    cert: fs.readFileSync("/var/www/keys/certificate.crt")
+};
 
 const sheets = require('./sheets.js');
 
+const HTTP_PORT = 4990;
 const PORT = process.env.SERVER_PORT || 5000;
 const PASSWORD = process.env.PASSWORD;
 
@@ -21,8 +30,12 @@ app.get("/data", (req, res) => {
     res.json({ results: getMatchingGroups(search) });
 });
 
-app.listen(PORT, () => {
-    console.log(`Server listening on ${PORT}`);
+app.listen(HTTP_PORT, () => {
+    console.log(`HTTP server listening on ${HTTP_PORT}`);
+});
+
+https.createServer(options, app).listen(PORT, () => {
+    console.log(`HTTPS server listening on ${PORT}`);
 });
 
 function getMatchingGroups(searchText) {
