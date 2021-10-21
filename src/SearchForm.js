@@ -1,5 +1,6 @@
+import { Button, Link, Paper, TextField } from "@material-ui/core";
+
 import React from 'react';
-import { Link, Paper, Button, TextField } from "@material-ui/core";
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
 // const SERVER_URL = 'http://localhost:4990' // Use the HTTP port in development
-const SERVER_URL = 'https://72.79.51.2:5000'
+const SERVER_URL = 'https://server.ndimov.com:5000'
 
 class SearchForm extends React.Component {
   constructor(props) {
