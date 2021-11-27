@@ -1,13 +1,28 @@
-import React, { Component } from 'react';
 import './App.css';
+
+import { Container, Typography } from '@material-ui/core'
+import React, { Component } from 'react';
+
+import AddLinkModal from './AddLinkModal';
+import Header from './Header';
 import SearchForm from './SearchForm.js';
 import { ThemeProvider } from '@material-ui/core/styles';
+import { fetchListings } from './common';
 import theme from './theme';
-import Header from './Header';
-import { Container, Typography } from '@material-ui/core'
-
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      listings: []
+    }
+  }
+
+  async componentDidMount() {
+    fetchListings().then(listings => { this.setState( { listings: listings})})
+  }
+
   render() {
     return (
       <ThemeProvider theme={theme}>
@@ -23,7 +38,8 @@ class App extends Component {
           <Typography paragraph="true" className="helper-text">
             Note: If you try to join too many groups, GroupMe will say "not joinable" for a bit, so try the link again later.
           </Typography>
-          <SearchForm />
+          <SearchForm {...this.state} />
+          <AddLinkModal {...this.state} />
         </Container>
       </ThemeProvider>
     );

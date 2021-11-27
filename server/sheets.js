@@ -1,7 +1,11 @@
+// This file holds old, deprecated code for interfacing
+// with Google Sheets as a source of truth for courses
+
 // Authorization code is from https://developers.google.com/sheets/api/quickstart/nodejs
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
+const { addChat } = require('./data');
 
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly'];
@@ -80,7 +84,7 @@ function getData(auth) {
     spreadsheetId: process.env.SPREADSHEET_ID,
     range: process.env.RANGE,
   }, (err, res) => {
-    // console.log('Spreadsheet data retrieved');
+    console.log('Spreadsheet data retrieved');
     if (err) return console.log('Spreadsheet API returned an error: ' + err);
     savedRows = res.data.values;
   });
@@ -106,6 +110,31 @@ function doSearch() {
       console.log(msg);
       sendMessage(msg);
     }
+  })
+}
+
+exports.transferToMongo = () => {
+  const rows = savedRows;
+  rows.map((row) => {
+    const classCode = row[0] || '';
+    const className = row[1] || '';
+    const additionalInfo = row[2] || '';
+    const link = row[3];
+    const classObj =
+      {
+        code: classCode,
+        name: className,
+        extra: additionalInfo,
+        link: link,
+        listing: "FL2021 classes"
+      }
+    console.log("Transferring course:")
+    console.log(classObj);
+    function timeoutFnc() {
+      addChat(classObj)
+    }
+    // addChat(classObj)
+    setTimeout(timeoutFnc, 1000)
   })
 }
 

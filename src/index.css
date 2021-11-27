@@ -3,3 +3,15 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+#addlinkform .MuiInputBase-root{
+  width: 400px;
+}
+
+#searchform .MuiInputBase-root{
+  width: 300px;
+}
+
+.addlinkrow {
+  margin-bottom: 10px;
+}
