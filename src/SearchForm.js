@@ -62,7 +62,7 @@ class SearchForm extends React.Component {
       return
     }
     if (body.results.length === 0) {
-      this.setState({ results: 'No results found. Make a new chat and put it in the sheet!' })
+      this.setState({ results: `No results found for '${this.state.value}'. Add a new chat with the button below.` })
       return
     }
     let tableResults =
