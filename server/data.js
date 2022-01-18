@@ -6,13 +6,14 @@ const { MongoClient } = require('mongodb');
 const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 exports.searchResults = async (searchStr, listing, onResultAction) => {
+    normalizedSearch = searchStr.toLowerCase();
     return new Promise((resolve, reject) => {
         client.connect(err => {
             const collection = client.db("course-linker").collection("chats");
             collection.find({ "listing": listing}).sort( { code: 1, extra: 1} ).toArray()
                 .then(results => {
                     results.forEach(result => {
-                        if (result.code && result.code.toLowerCase().includes(searchStr) || result.name.toLowerCase().includes(searchStr)) {
+                        if (result.code && result.code.toLowerCase().includes(normalizedSearch) || result.name.toLowerCase().includes(normalizedSearch)) {
                             var msg;
                             msg = {
                                 code: result.code,
