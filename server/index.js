@@ -11,7 +11,7 @@ const options = {
     cert: fs.readFileSync("/var/www/keys/certificate.crt")
 };
 
-const { searchResults, getListings, addChat } = require('./data.js');
+const { searchResults, getListings, addChat, validateLink } = require('./data.js');
 
 const HTTP_PORT = 4990;
 const PORT = process.env.SERVER_PORT || 5000;
@@ -38,9 +38,14 @@ app.get("/data", (req, res) => {
 app.post("/add", (req, res) => {
     console.log("Received /add request with following body:")
     console.log(req.body)
-    addChat(req.body)
-        .then((result) => {res.sendStatus(200)})
-        .catch((error) => {res.status(500).json({ error: error})})
+    if (!validateLink(req.body.link)) {
+        res.status(400).json({ error: "Invalid link"});
+    }
+    else {
+        addChat(req.body)
+            .then((result) => { res.sendStatus(200) })
+            .catch((error) => { res.status(500).json({ error: error }) })
+    }
 });
 
 // This endpoint gets the active listings from the database, for instance

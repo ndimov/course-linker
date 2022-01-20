@@ -21,7 +21,6 @@ exports.searchResults = async (searchStr, listing, onResultAction) => {
                                 extra: result.extra,
                                 link: result.link
                             }
-                            console.log(msg);
                             onResultAction(msg);
                         }
                     })
@@ -77,4 +76,17 @@ exports.addChat = async (obj) => {
             });
         })
     })
+}
+
+// This method validates whether an input string is a valid group chat link
+exports.validateLink = (link) => {
+    let url;
+
+    try {
+        url = new URL(link);
+    } catch (_) {
+        return false;
+    }
+
+    return url.protocol === "http:" || url.protocol === "https:";
 }

@@ -76,10 +76,18 @@ class AddLinkForm extends React.Component {
         link: this.state.link,
         listing: this.state.listing
       })
-    }).then(this.setState({ submitLabel: "Success!" }))
+    }).then(response => {
+      if (!response.ok) {
+        return response.json().then(body => {
+          console.log(body);
+          throw new Error(body.error || '');
+        });
+      }
+    })
+      .then(this.setState({ submitLabel: "Success!" }))
       .catch((e) => {
         console.error("Error in submitting course: " + e);
-        this.setState({ submitLabel: "Error adding course." })
+        this.setState({ submitLabel: `Error adding course. (${e})` })
         return
       });
   }
